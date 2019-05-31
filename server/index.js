@@ -1,0 +1,15 @@
+const express = require('express')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const app = express()
+const {resolve} = require('path')
+const server = require('http').Server(app)
+const userRouter = require('./router/user')
+
+app.use('/', express.static(resolve(__dirname, '../dist')))
+app.use(cookieParser())
+app.use(bodyParser.json())
+app.use('/api', userRouter)
+server.listen(9111, function() {
+  console.log('Node app start at http://localhost:9111')
+})
